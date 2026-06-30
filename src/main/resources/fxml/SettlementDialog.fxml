@@ -185,8 +185,8 @@
          弹窗底部按钮
          ============================================================ -->
     <buttonTypes>
-        <ButtonType fx:constant="CANCEL" text="取消"/>
-        <ButtonType fx:constant="OK" text="确认结算"/>
+        <ButtonType fx:constant="CANCEL"/>
+        <ButtonType fx:constant="OK"/>
     </buttonTypes>
 
 </DialogPane>

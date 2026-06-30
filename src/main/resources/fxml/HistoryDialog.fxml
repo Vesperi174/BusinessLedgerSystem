@@ -163,8 +163,8 @@
          弹窗底部按钮
          ============================================================ -->
     <buttonTypes>
-        <ButtonType fx:constant="CLOSE" text="关闭"/>
-        <ButtonType fx:constant="APPLY" text="📥 导出Excel"/>
+        <ButtonType fx:constant="CLOSE"/>
+        <ButtonType fx:constant="APPLY"/>
     </buttonTypes>
 
 </DialogPane>

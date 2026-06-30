@@ -265,6 +265,9 @@ public class MainController {
             controller.setRoom(room);
             controller.setWalkInMode(true);
 
+            ((Button) dialogPane.lookupButton(ButtonType.CANCEL)).setText("取消");
+            ((Button) dialogPane.lookupButton(ButtonType.OK)).setText("确认开台");
+
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
             dialog.initOwner(stage);
@@ -303,6 +306,9 @@ public class MainController {
             DialogPane dialogPane = loader.load();
 
             ReservationController controller = loader.getController();
+
+            ((Button) dialogPane.lookupButton(ButtonType.CANCEL)).setText("取消");
+            ((Button) dialogPane.lookupButton(ButtonType.OK)).setText("确认预约");
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
@@ -344,6 +350,9 @@ public class MainController {
             Order order = orderService.getOrderById(orderDTO.getId());
             controller.setOrder(order);
             controller.loadOrderData();
+
+            ((Button) dialogPane.lookupButton(ButtonType.CANCEL)).setText("取消");
+            ((Button) dialogPane.lookupButton(ButtonType.OK)).setText("确认结算");
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);
@@ -405,6 +414,9 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/HistoryDialog.fxml"));
             loader.setControllerFactory(SpringContextHolder::getBean);
             DialogPane dialogPane = loader.load();
+
+            ((Button) dialogPane.lookupButton(ButtonType.CLOSE)).setText("关闭");
+            ((Button) dialogPane.lookupButton(ButtonType.APPLY)).setText("📥 导出Excel");
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.setDialogPane(dialogPane);

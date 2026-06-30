@@ -112,13 +112,8 @@
          弹窗底部按钮
          ============================================================ -->
     <buttonTypes>
-        <ButtonType fx:constant="CANCEL" text="取消"/>
-        <ButtonType fx:constant="OK" text="确认预约"/>
+        <ButtonType fx:constant="CANCEL"/>
+        <ButtonType fx:constant="OK"/>
     </buttonTypes>
-
-    <!-- 自定义按钮样式 -->
-    <Button fx:id="btnCancel" text="取消" styleClass="button-secondary"/>
-    <Button fx:id="btnConfirm" text="确认预约" styleClass="button-primary"
-            defaultButton="true"/>
 
 </DialogPane>
