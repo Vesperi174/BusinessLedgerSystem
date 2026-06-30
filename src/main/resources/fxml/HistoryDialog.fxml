@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<!--
+  HistoryDialog.fxml — 历史查询弹窗
+  BusinessLedgerSystem 桌游店业务台账系统
+
+  弹窗结构：
+  ┌──────────────────────────────────────────────────┐
+  │  📊 历史查询                                   ✕  │
+  ├──────────────────────────────────────────────────┤
+  │  筛选条件（日期范围 + 包间 + 状态）                │
+  │  ┌──────────────────────────────────────────┐    │
+  │  │  订单表格                                  │    │
+  │  └──────────────────────────────────────────┘    │
+  │  ┌──────────────────────────────────────────┐    │
+  │  │  统计汇总                                  │    │
+  │  └──────────────────────────────────────────┘    │
+  ├──────────────────────────────────────────────────┤
+  │                     [ 📥 导出Excel ]  [ 关闭 ]    │
+  └──────────────────────────────────────────────────┘
+-->
+
+<DialogPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.businessledger.ui.controller.HistoryController"
+            styleClass="dialog-pane"
+            stylesheets="@../css/theme.css,@../css/button.css,@../css/table.css,@../css/dialog.css">
+
+    <!-- ============================================================
+         弹窗头部
+         ============================================================ -->
+    <header>
+        <HBox styleClass="dialog-header">
+            <Label text="📊" styleClass="dialog-title-icon"/>
+            <Label text="历史查询" styleClass="dialog-title">
+                <font>
+                    <Font name="System" size="18.0"/>
+                </font>
+            </Label>
+        </HBox>
+    </header>
+
+    <!-- ============================================================
+         弹窗内容
+         ============================================================ -->
+    <content>
+        <VBox styleClass="dialog-content" spacing="16">
+            <!-- 筛选条件 -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <Label text="日期范围" styleClass="dialog-form-label"/>
+                <DatePicker fx:id="dpStartDate"
+                            styleClass="dialog-date-picker"
+                            promptText="开始日期"
+                            prefWidth="140"/>
+                <Label text="至" styleClass="dialog-form-label"
+                       prefWidth="20" minWidth="20"/>
+                <DatePicker fx:id="dpEndDate"
+                            styleClass="dialog-date-picker"
+                            promptText="结束日期"
+                            prefWidth="140"/>
+
+                <Region prefWidth="12"/>
+
+                <Label text="包间" styleClass="dialog-form-label"/>
+                <ComboBox fx:id="cmbRoomFilter"
+                          styleClass="dialog-combo-box"
+                          promptText="全部包间"
+                          prefWidth="120"/>
+
+                <Region prefWidth="8"/>
+
+                <Label text="状态" styleClass="dialog-form-label"/>
+                <ComboBox fx:id="cmbStatusFilter"
+                          styleClass="dialog-combo-box"
+                          promptText="全部状态"
+                          prefWidth="110"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="🔍 查询"
+                        styleClass="button-primary"
+                        fx:id="btnSearch"
+                        onAction="#handleSearch"/>
+            </HBox>
+
+            <!-- 订单表格 -->
+            <TableView fx:id="historyTable"
+                       styleClass="dialog-table-view"
+                       VBox.vgrow="ALWAYS"
+                       prefHeight="320">
+                <columns>
+                    <TableColumn text="订单号" fx:id="colOrderId"
+                                 prefWidth="55" resizable="false"/>
+                    <TableColumn text="日期" fx:id="colDate"
+                                 prefWidth="80"/>
+                    <TableColumn text="包间" fx:id="colRoom"
+                                 prefWidth="75"/>
+                    <TableColumn text="状态" fx:id="colStatus"
+                                 prefWidth="70"/>
+                    <TableColumn text="人数" fx:id="colPeople"
+                                 prefWidth="45" resizable="false"/>
+                    <TableColumn text="实付" fx:id="colActualPayment"
+                                 prefWidth="70"/>
+                    <TableColumn text="退款" fx:id="colRefund"
+                                 prefWidth="70"/>
+                    <TableColumn text="美团" fx:id="colMeituan"
+                                 prefWidth="50" resizable="false"/>
+                    <TableColumn text="操作" fx:id="colAction"
+                                 prefWidth="65" resizable="false"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+
+            <!-- 统计汇总 -->
+            <HBox styleClass="dialog-stats-bar" spacing="16">
+                <VBox styleClass="dialog-stats-item">
+                    <Label text="总订单数" styleClass="dialog-stats-label"/>
+                    <Label text="0" styleClass="dialog-stats-value"
+                           fx:id="lblTotalOrders"/>
+                </VBox>
+                <Region styleClass="status-bar-separator"/>
+                <VBox styleClass="dialog-stats-item">
+                    <Label text="已结" styleClass="dialog-stats-label"/>
+                    <Label text="0" styleClass="dialog-stats-value"
+                           fx:id="lblFinishedOrders"/>
+                </VBox>
+                <Region styleClass="status-bar-separator"/>
+                <VBox styleClass="dialog-stats-item">
+                    <Label text="废单" styleClass="dialog-stats-label"/>
+                    <Label text="0" styleClass="dialog-stats-value"
+                           fx:id="lblCancelledOrders"/>
+                </VBox>
+                <Region styleClass="status-bar-separator"/>
+                <VBox styleClass="dialog-stats-item">
+                    <Label text="总收入" styleClass="dialog-stats-label"/>
+                    <Label text="¥ 0.00" styleClass="dialog-stats-value"
+                           fx:id="lblTotalRevenue"/>
+                </VBox>
+                <Region styleClass="status-bar-separator"/>
+                <VBox styleClass="dialog-stats-item">
+                    <Label text="退款合计" styleClass="dialog-stats-label"/>
+                    <Label text="¥ 0.00" styleClass="dialog-stats-value"
+                           fx:id="lblTotalRefund"/>
+                </VBox>
+                <Region styleClass="status-bar-separator"/>
+                <VBox styleClass="dialog-stats-item">
+                    <Label text="实收" styleClass="dialog-stats-label"/>
+                    <Label text="¥ 0.00" styleClass="dialog-stats-value"
+                           fx:id="lblNetRevenue"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </content>
+
+    <!-- ============================================================
+         弹窗底部按钮
+         ============================================================ -->
+    <buttonTypes>
+        <ButtonType text="关闭" buttonData="CLOSE"/>
+        <ButtonType text="📥 导出Excel" buttonData="OTHER"/>
+    </buttonTypes>
+
+</DialogPane>

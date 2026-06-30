@@ -1,0 +1,316 @@
+/* ============================================================
+ * dialog.css — 弹窗通用样式
+ * BusinessLedgerSystem 桌游店业务台账系统
+ * ============================================================ */
+
+/* ========================================
+ * 弹窗基础样式
+ * ======================================== */
+.dialog-pane {
+    -fx-background-color: -fx-bg-card;
+    -fx-background-radius: -fx-radius-xl;
+    -fx-border-radius: -fx-radius-xl;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 20, 0, 0, 8);
+}
+
+/* 弹窗标题栏 */
+.dialog-header {
+    -fx-padding: 20px 24px 16px 24px;
+    -fx-spacing: 12px;
+    -fx-alignment: center-left;
+    -fx-border-color: -fx-border-default;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.dialog-title {
+    -fx-font-size: -fx-font-size-xl;
+    -fx-font-weight: -fx-font-weight-bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.dialog-title-icon {
+    -fx-font-size: -fx-font-size-xl;
+    -fx-text-fill: -fx-color-primary-500;
+}
+
+/* 弹窗内容区域 */
+.dialog-content {
+    -fx-padding: 24px;
+    -fx-spacing: 20px;
+    -fx-background-color: -fx-bg-card;
+}
+
+.dialog-content-compact {
+    -fx-padding: 16px 24px;
+    -fx-spacing: 16px;
+    -fx-background-color: -fx-bg-card;
+}
+
+/* 弹窗底部按钮栏 */
+.dialog-footer {
+    -fx-padding: 16px 24px;
+    -fx-spacing: 12px;
+    -fx-alignment: center-right;
+    -fx-border-color: -fx-border-default;
+    -fx-border-width: 1px 0 0 0;
+    -fx-background-color: -fx-color-gray-50;
+}
+
+/* ========================================
+ * 弹窗内表单行
+ * ======================================== */
+.dialog-form-row {
+    -fx-spacing: 12px;
+    -fx-alignment: center-left;
+}
+
+.dialog-form-label {
+    -fx-font-size: -fx-font-size-sm;
+    -fx-font-weight: -fx-font-weight-bold;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-min-width: 80px;
+    -fx-pref-width: 80px;
+}
+
+.dialog-form-label-wide {
+    -fx-font-size: -fx-font-size-sm;
+    -fx-font-weight: -fx-font-weight-bold;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-min-width: 100px;
+    -fx-pref-width: 100px;
+}
+
+/* ========================================
+ * 弹窗内输入框
+ * ======================================== */
+.dialog-input {
+    -fx-background-color: -fx-bg-input;
+    -fx-border-color: -fx-border-default;
+    -fx-border-radius: -fx-radius-md;
+    -fx-background-radius: -fx-radius-md;
+    -fx-padding: 8px 12px;
+    -fx-font-size: -fx-font-size-base;
+    -fx-text-fill: -fx-text-primary;
+    -fx-min-height: 36px;
+    -fx-pref-height: 36px;
+}
+
+.dialog-input:focused {
+    -fx-border-color: -fx-border-focus;
+    -fx-effect: dropshadow(gaussian, rgba(99, 102, 241, 0.15), 3, 0, 0, 0);
+}
+
+.dialog-input:error {
+    -fx-border-color: -fx-border-error;
+}
+
+.dialog-input:disabled {
+    -fx-background-color: -fx-color-gray-100;
+    -fx-text-fill: -fx-text-tertiary;
+}
+
+/* ========================================
+ * 弹窗内下拉框
+ * ======================================== */
+.dialog-combo-box {
+    -fx-background-color: -fx-bg-input;
+    -fx-border-color: -fx-border-default;
+    -fx-border-radius: -fx-radius-md;
+    -fx-background-radius: -fx-radius-md;
+    -fx-padding: 4px 8px;
+    -fx-font-size: -fx-font-size-base;
+    -fx-min-height: 36px;
+    -fx-pref-height: 36px;
+}
+
+.dialog-combo-box:focused {
+    -fx-border-color: -fx-border-focus;
+}
+
+.dialog-combo-box .list-cell {
+    -fx-padding: 8px 12px;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.dialog-combo-box .list-cell:hover {
+    -fx-background-color: -fx-color-primary-50;
+}
+
+/* ========================================
+ * 弹窗内日期选择器
+ * ======================================== */
+.dialog-date-picker {
+    -fx-background-color: -fx-bg-input;
+    -fx-border-color: -fx-border-default;
+    -fx-border-radius: -fx-radius-md;
+    -fx-background-radius: -fx-radius-md;
+    -fx-min-height: 36px;
+    -fx-pref-height: 36px;
+}
+
+.dialog-date-picker:focused {
+    -fx-border-color: -fx-border-focus;
+}
+
+.dialog-date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* ========================================
+ * 弹窗内复选框
+ * ======================================== */
+.dialog-checkbox {
+    -fx-font-size: -fx-font-size-base;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.dialog-checkbox .box {
+    -fx-background-color: -fx-bg-input;
+    -fx-border-color: -fx-border-default;
+    -fx-border-radius: -fx-radius-sm;
+    -fx-background-radius: -fx-radius-sm;
+}
+
+.dialog-checkbox:selected .box {
+    -fx-background-color: -fx-color-primary-600;
+    -fx-border-color: -fx-color-primary-600;
+}
+
+.dialog-checkbox:selected .mark {
+    -fx-background-color: -fx-text-inverse;
+}
+
+/* ========================================
+ * 弹窗内信息提示卡片
+ * ======================================== */
+.dialog-info-card {
+    -fx-background-color: -fx-color-primary-50;
+    -fx-background-radius: -fx-radius-md;
+    -fx-border-radius: -fx-radius-md;
+    -fx-padding: 12px 16px;
+    -fx-spacing: 4px;
+    -fx-border-color: -fx-color-primary-200;
+    -fx-border-width: 1px;
+}
+
+.dialog-info-card-title {
+    -fx-font-size: -fx-font-size-sm;
+    -fx-font-weight: -fx-font-weight-bold;
+    -fx-text-fill: -fx-color-primary-700;
+}
+
+.dialog-info-card-text {
+    -fx-font-size: -fx-font-size-sm;
+    -fx-text-fill: -fx-color-primary-600;
+}
+
+/* ========================================
+ * 弹窗内费用明细
+ * ======================================== */
+.dialog-fee-grid {
+    -fx-background-color: -fx-color-gray-50;
+    -fx-background-radius: -fx-radius-md;
+    -fx-border-radius: -fx-radius-md;
+    -fx-padding: 16px;
+    -fx-hgap: 16px;
+    -fx-vgap: 8px;
+    -fx-border-color: -fx-border-default;
+    -fx-border-width: 1px;
+}
+
+.dialog-fee-label {
+    -fx-font-size: -fx-font-size-base;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.dialog-fee-value {
+    -fx-font-size: -fx-font-size-base;
+    -fx-text-fill: -fx-text-primary;
+    -fx-alignment: center-right;
+}
+
+.dialog-fee-total-label {
+    -fx-font-size: -fx-font-size-md;
+    -fx-font-weight: -fx-font-weight-bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.dialog-fee-total-value {
+    -fx-font-size: -fx-font-size-md;
+    -fx-font-weight: -fx-font-weight-bold;
+    -fx-text-fill: -fx-color-primary-600;
+    -fx-alignment: center-right;
+}
+
+.dialog-fee-divider {
+    -fx-background-color: -fx-border-default;
+    -fx-min-height: 1px;
+}
+
+/* ========================================
+ * 弹窗表格（历史查询）
+ * ======================================== */
+.dialog-table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-border-default;
+    -fx-border-radius: -fx-radius-md;
+    -fx-background-radius: -fx-radius-md;
+}
+
+.dialog-table-view .column-header-background {
+    -fx-background-color: -fx-color-gray-50;
+    -fx-background-radius: -fx-radius-md -fx-radius-md 0 0;
+}
+
+.dialog-table-view .table-row-cell {
+    -fx-min-height: 36px;
+}
+
+/* ========================================
+ * 弹窗统计栏
+ * ======================================== */
+.dialog-stats-bar {
+    -fx-background-color: -fx-color-gray-50;
+    -fx-background-radius: -fx-radius-md;
+    -fx-border-radius: -fx-radius-md;
+    -fx-padding: 12px 16px;
+    -fx-spacing: 16px;
+    -fx-alignment: center-left;
+    -fx-border-color: -fx-border-default;
+    -fx-border-width: 1px;
+}
+
+.dialog-stats-item {
+    -fx-spacing: 4px;
+    -fx-alignment: center-left;
+}
+
+.dialog-stats-label {
+    -fx-font-size: -fx-font-size-xs;
+    -fx-text-fill: -fx-text-tertiary;
+}
+
+.dialog-stats-value {
+    -fx-font-size: -fx-font-size-md;
+    -fx-font-weight: -fx-font-weight-bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* ========================================
+ * 弹窗错误提示
+ * ======================================== */
+.dialog-error {
+    -fx-font-size: -fx-font-size-sm;
+    -fx-text-fill: -fx-color-danger;
+    -fx-padding: 4px 0 0 0;
+}
+
+/* ========================================
+ * 弹窗遮罩层（通过代码控制）
+ * ======================================== */
+.dialog-overlay {
+    -fx-background-color: rgba(0, 0, 0, 0.4);
+}

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<!--
+  ReservationDialog.fxml — 创建预约弹窗
+  BusinessLedgerSystem 桌游店业务台账系统
+
+  弹窗结构：
+  ┌─────────────────────────────────────┐
+  │  📅 创建预约                     ✕   │
+  ├─────────────────────────────────────┤
+  │  包间选择                            │
+  │  预约时间                            │
+  │  到店人数                            │
+  │  定金                                │
+  │  ┌──────────────────────────────┐   │
+  │  │ 费用预估                      │   │
+  │  └──────────────────────────────┘   │
+  ├─────────────────────────────────────┤
+  │              [ 取消 ]  [ 确认预约 ]  │
+  └─────────────────────────────────────┘
+-->
+
+<DialogPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.businessledger.ui.controller.ReservationController"
+            styleClass="dialog-pane"
+            stylesheets="@../css/theme.css,@../css/button.css,@../css/dialog.css">
+
+    <!-- ============================================================
+         弹窗头部
+         ============================================================ -->
+    <header>
+        <HBox styleClass="dialog-header">
+            <Label text="📅" styleClass="dialog-title-icon"/>
+            <Label text="创建预约" styleClass="dialog-title">
+                <font>
+                    <Font name="System" size="18.0"/>
+                </font>
+            </Label>
+        </HBox>
+    </header>
+
+    <!-- ============================================================
+         弹窗内容
+         ============================================================ -->
+    <content>
+        <VBox styleClass="dialog-content">
+            <!-- 包间选择 -->
+            <HBox styleClass="dialog-form-row">
+                <Label text="包间选择" styleClass="dialog-form-label"/>
+                <ComboBox fx:id="cmbRoom"
+                          styleClass="dialog-combo-box"
+                          promptText="请选择包间"
+                          HBox.hgrow="ALWAYS"
+                          maxWidth="Infinity"/>
+            </HBox>
+
+            <!-- 预约时间 -->
+            <HBox styleClass="dialog-form-row">
+                <Label text="预约时间" styleClass="dialog-form-label"/>
+                <DatePicker fx:id="dpReserveDate"
+                            styleClass="dialog-date-picker"
+                            promptText="选择日期"
+                            HBox.hgrow="ALWAYS"/>
+                <TextField fx:id="txtReserveTime"
+                           styleClass="dialog-input"
+                           promptText="HH:mm（选填）"
+                           prefWidth="120"/>
+            </HBox>
+
+            <!-- 到店人数 -->
+            <HBox styleClass="dialog-form-row">
+                <Label text="到店人数" styleClass="dialog-form-label"/>
+                <Spinner fx:id="spnPeopleCount"
+                         min="1" max="999" initialValue="1"
+                         editable="true"
+                         styleClass="dialog-input"
+                         HBox.hgrow="ALWAYS"
+                         maxWidth="Infinity"/>
+            </HBox>
+
+            <!-- 定金 -->
+            <HBox styleClass="dialog-form-row">
+                <Label text="定金" styleClass="dialog-form-label"/>
+                <TextField fx:id="txtDeposit"
+                           styleClass="dialog-input"
+                           text="50.00"
+                           promptText="定金金额"
+                           HBox.hgrow="ALWAYS"
+                           maxWidth="Infinity"/>
+            </HBox>
+
+            <!-- 费用预估提示 -->
+            <VBox styleClass="dialog-info-card">
+                <Label text="💡 费用预估" styleClass="dialog-info-card-title"/>
+                <Label text="包间费：¥ --" styleClass="dialog-info-card-text"
+                       fx:id="lblFeeEstimate"/>
+                <Label text="定金 ¥50.00 将在结算时退回" styleClass="dialog-info-card-text"/>
+            </VBox>
+
+            <!-- 错误提示 -->
+            <Label text="" styleClass="dialog-error" fx:id="lblError"/>
+        </VBox>
+    </content>
+
+    <!-- ============================================================
+         弹窗底部按钮
+         ============================================================ -->
+    <buttonTypes>
+        <ButtonType text="取消" buttonData="CANCEL"/>
+        <ButtonType text="确认预约" buttonData="OK_DONE"/>
+    </buttonTypes>
+
+    <!-- 自定义按钮样式 -->
+    <Button fx:id="btnCancel" text="取消" styleClass="button-secondary"/>
+    <Button fx:id="btnConfirm" text="确认预约" styleClass="button-primary"
+            defaultButton="true"/>
+
+</DialogPane>

@@ -1,0 +1,105 @@
+/* ============================================================
+ * statusbar.css — 状态栏样式
+ * BusinessLedgerSystem 桌游店业务台账系统
+ * ============================================================ */
+
+/* ========================================
+ * 状态栏容器
+ * ======================================== */
+.status-bar {
+    -fx-background-color: -fx-bg-statusbar;
+    -fx-border-color: -fx-border-default;
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 0 16px;
+    -fx-min-height: 32px;
+    -fx-pref-height: 32px;
+    -fx-spacing: 12px;
+    -fx-alignment: center-left;
+}
+
+/* ========================================
+ * 状态栏文字
+ * ======================================== */
+.status-bar-label {
+    -fx-font-size: -fx-font-size-xs;
+    -fx-text-fill: -fx-text-tertiary;
+}
+
+.status-bar-value {
+    -fx-font-size: -fx-font-size-xs;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-weight: -fx-font-weight-bold;
+}
+
+/* ========================================
+ * 状态栏分隔符
+ * ======================================== */
+.status-bar-separator {
+    -fx-min-width: 1px;
+    -fx-min-height: 14px;
+    -fx-background-color: -fx-border-default;
+}
+
+/* ========================================
+ * 状态指示灯（数据库连接状态）
+ * ======================================== */
+.status-indicator {
+    -fx-min-width: 6px;
+    -fx-min-height: 6px;
+    -fx-max-width: 6px;
+    -fx-max-height: 6px;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+}
+
+.status-indicator-ok {
+    -fx-background-color: -fx-color-success;
+}
+
+.status-indicator-warning {
+    -fx-background-color: -fx-color-warning;
+}
+
+.status-indicator-error {
+    -fx-background-color: -fx-color-danger;
+}
+
+/* ========================================
+ * 状态栏通知提示
+ * ======================================== */
+.status-bar-notification {
+    -fx-font-size: -fx-font-size-xs;
+    -fx-padding: 2px 8px;
+    -fx-background-radius: -fx-radius-sm;
+    -fx-border-radius: -fx-radius-sm;
+}
+
+.status-bar-notification-success {
+    -fx-text-fill: -fx-color-success-dark;
+    -fx-background-color: -fx-color-success-light;
+}
+
+.status-bar-notification-error {
+    -fx-text-fill: -fx-color-danger-dark;
+    -fx-background-color: -fx-color-danger-light;
+}
+
+.status-bar-notification-info {
+    -fx-text-fill: -fx-color-info-dark;
+    -fx-background-color: -fx-color-info-light;
+}
+
+/* ========================================
+ * 状态栏右侧区域
+ * ======================================== */
+.status-bar-right {
+    -fx-spacing: 12px;
+    -fx-alignment: center-right;
+}
+
+/* ========================================
+ * 状态栏弹簧（占位）
+ * ======================================== */
+.status-bar-spacer {
+    -fx-min-width: 0;
+}

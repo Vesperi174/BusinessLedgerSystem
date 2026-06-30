@@ -1,0 +1,193 @@
+/* ============================================================
+ * main.css — 主界面布局样式
+ * BusinessLedgerSystem 桌游店业务台账系统
+ * ============================================================ */
+
+/* ========================================
+ * 根布局
+ * ======================================== */
+.main-root {
+    -fx-background-color: -fx-bg-primary;
+}
+
+/* ========================================
+ * 工具栏
+ * ======================================== */
+.toolbar {
+    -fx-background-color: -fx-bg-toolbar;
+    -fx-border-color: -fx-border-default;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 0 16px;
+    -fx-min-height: 52px;
+    -fx-pref-height: 52px;
+    -fx-spacing: 8px;
+    -fx-alignment: center-left;
+}
+
+/* 工具栏标题 */
+.toolbar-title {
+    -fx-font-size: -fx-font-size-lg;
+    -fx-font-weight: -fx-font-weight-bold;
+    -fx-text-fill: -fx-text-primary;
+    -fx-padding: 0 0 0 4px;
+}
+
+.toolbar-title-icon {
+    -fx-font-size: -fx-font-size-xl;
+    -fx-text-fill: -fx-color-primary-500;
+}
+
+/* 工具栏分隔符 */
+.toolbar-separator {
+    -fx-min-width: 1px;
+    -fx-min-height: 24px;
+    -fx-background-color: -fx-border-default;
+    -fx-margin: 0 4px;
+}
+
+/* 工具栏弹簧 */
+.toolbar-spacer {
+    -fx-min-width: 0;
+}
+
+/* 工具栏主要操作区 */
+.toolbar-actions-primary {
+    -fx-spacing: 8px;
+    -fx-alignment: center-left;
+    -fx-padding: 0 0 0 16px;
+}
+
+/* 工具栏次要操作区 */
+.toolbar-actions-secondary {
+    -fx-spacing: 4px;
+    -fx-alignment: center-right;
+}
+
+/* ========================================
+ * 主内容区域（SplitPane）
+ * ======================================== */
+.main-split-pane {
+    -fx-background-color: -fx-bg-primary;
+    -fx-padding: 0;
+}
+
+.main-split-pane > .split-pane-divider {
+    -fx-background-color: -fx-border-default;
+    -fx-padding: 0 1px;
+}
+
+.main-split-pane > .split-pane-divider:hover {
+    -fx-background-color: -fx-color-primary-300;
+}
+
+/* ========================================
+ * 左侧包间区域
+ * ======================================== */
+.room-area {
+    -fx-background-color: -fx-bg-primary;
+    -fx-min-width: 400px;
+}
+
+/* ========================================
+ * 右侧订单列表区域
+ * ======================================== */
+.order-area {
+    -fx-background-color: -fx-bg-card;
+    -fx-min-width: 300px;
+}
+
+.order-area-header {
+    -fx-padding: 16px 16px 8px 16px;
+    -fx-alignment: center-left;
+}
+
+.order-area-title {
+    -fx-font-size: -fx-font-size-lg;
+    -fx-font-weight: -fx-font-weight-bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* ========================================
+ * 右键上下文菜单
+ * ======================================== */
+.context-menu {
+    -fx-background-color: -fx-bg-card;
+    -fx-background-radius: -fx-radius-md;
+    -fx-border-radius: -fx-radius-md;
+    -fx-border-color: -fx-border-default;
+    -fx-border-width: 1px;
+    -fx-padding: 4px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 12, 0, 0, 4);
+}
+
+.context-menu .menu-item {
+    -fx-padding: 8px 12px;
+    -fx-background-radius: -fx-radius-sm;
+    -fx-background-color: transparent;
+}
+
+.context-menu .menu-item:hover {
+    -fx-background-color: -fx-color-gray-100;
+}
+
+.context-menu .menu-item .label {
+    -fx-font-size: -fx-font-size-base;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.context-menu .separator {
+    -fx-padding: 2px 8px;
+}
+
+.context-menu .separator .line {
+    -fx-border-color: -fx-border-default;
+    -fx-border-width: 1px 0 0 0;
+}
+
+/* ========================================
+ * 滚动条全局样式
+ * ======================================== */
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: -fx-color-gray-300;
+    -fx-background-radius: 4px;
+    -fx-background-insets: 2px;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: -fx-color-gray-400;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 2px;
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-background-color: -fx-color-gray-400;
+}
+
+.scroll-bar:vertical {
+    -fx-pref-width: 8px;
+}
+
+.scroll-bar:horizontal {
+    -fx-pref-height: 8px;
+}
+
+/* ========================================
+ * Tooltip 样式
+ * ======================================== */
+.tooltip {
+    -fx-background-color: -fx-color-gray-800;
+    -fx-text-fill: -fx-text-inverse;
+    -fx-font-size: -fx-font-size-xs;
+    -fx-padding: 6px 10px;
+    -fx-background-radius: -fx-radius-sm;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 6, 0, 0, 2);
+}

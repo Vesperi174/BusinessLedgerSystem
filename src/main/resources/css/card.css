@@ -1,0 +1,245 @@
+/* ============================================================
+ * card.css — 包间卡片样式
+ * BusinessLedgerSystem 桌游店业务台账系统
+ * ============================================================ */
+
+/* ========================================
+ * 卡片网格容器
+ * ======================================== */
+.room-grid {
+    -fx-background-color: -fx-bg-primary;
+    -fx-padding: 20px;
+    -fx-hgap: 16px;
+    -fx-vgap: 16px;
+    -fx-alignment: top-left;
+}
+
+/* ========================================
+ * 卡片基础样式
+ * ======================================== */
+.room-card {
+    -fx-background-color: -fx-bg-card;
+    -fx-background-radius: -fx-radius-lg;
+    -fx-border-radius: -fx-radius-lg;
+    -fx-border-width: 0 0 0 4px;
+    -fx-padding: 16px;
+    -fx-min-width: 200px;
+    -fx-min-height: 150px;
+    -fx-pref-width: 210px;
+    -fx-pref-height: 155px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.06), 6, 0, 0, 2);
+    -fx-cursor: hand;
+}
+
+.room-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 12, 0, 0, 4);
+    -fx-translate-y: -2px;
+}
+
+.room-card:pressed {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.06), 3, 0, 0, 1);
+    -fx-translate-y: 1px;
+}
+
+/* ========================================
+ * 卡片状态边框颜色
+ * ======================================== */
+.room-card-idle {
+    -fx-border-color: -fx-color-success;
+}
+
+.room-card-reserved {
+    -fx-border-color: -fx-color-warning;
+}
+
+.room-card-inuse {
+    -fx-border-color: -fx-color-danger;
+}
+
+/* ========================================
+ * 卡片内部布局
+ * ======================================== */
+.room-card-content {
+    -fx-spacing: 8px;
+    -fx-alignment: center-left;
+}
+
+/* ========================================
+ * 卡片头部：状态指示器 + 状态文字
+ * ======================================== */
+.room-card-header {
+    -fx-spacing: 8px;
+    -fx-alignment: center-left;
+}
+
+/* 状态指示灯（圆点） */
+.status-dot {
+    -fx-min-width: 8px;
+    -fx-min-height: 8px;
+    -fx-max-width: 8px;
+    -fx-max-height: 8px;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+}
+
+.status-dot-idle {
+    -fx-background-color: -fx-color-success;
+    -fx-effect: dropshadow(gaussian, rgba(34, 197, 94, 0.4), 3, 0, 0, 0);
+}
+
+.status-dot-reserved {
+    -fx-background-color: -fx-color-warning;
+    -fx-effect: dropshadow(gaussian, rgba(245, 158, 11, 0.4), 3, 0, 0, 0);
+}
+
+.status-dot-inuse {
+    -fx-background-color: -fx-color-danger;
+    -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.4), 3, 0, 0, 0);
+    -fx-animation: pulse 2s infinite;
+}
+
+/* 状态文字标签 */
+.status-label {
+    -fx-font-size: -fx-font-size-xs;
+    -fx-font-weight: -fx-font-weight-bold;
+    -fx-padding: 2px 8px;
+    -fx-background-radius: -fx-radius-full;
+    -fx-border-radius: -fx-radius-full;
+}
+
+.status-label-idle {
+    -fx-text-fill: -fx-color-success-dark;
+    -fx-background-color: -fx-color-success-light;
+}
+
+.status-label-reserved {
+    -fx-text-fill: -fx-color-warning-dark;
+    -fx-background-color: -fx-color-warning-light;
+}
+
+.status-label-inuse {
+    -fx-text-fill: -fx-color-danger-dark;
+    -fx-background-color: -fx-color-danger-light;
+}
+
+/* ========================================
+ * 卡片标题（包间名称）
+ * ======================================== */
+.room-card-name {
+    -fx-font-size: -fx-font-size-lg;
+    -fx-font-weight: -fx-font-weight-bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* ========================================
+ * 卡片价格信息
+ * ======================================== */
+.room-card-price {
+    -fx-font-size: -fx-font-size-base;
+    -fx-text-fill: -fx-text-tertiary;
+}
+
+.room-card-price-value {
+    -fx-font-size: -fx-font-size-md;
+    -fx-font-weight: -fx-font-weight-semibold;
+    -fx-text-fill: -fx-color-primary-600;
+}
+
+/* ========================================
+ * 卡片附加信息（预约时间、顾客名等）
+ * ======================================== */
+.room-card-info {
+    -fx-font-size: -fx-font-size-sm;
+    -fx-text-fill: -fx-text-tertiary;
+    -fx-padding: 2px 0;
+}
+
+.room-card-info-highlight {
+    -fx-font-size: -fx-font-size-sm;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-weight: -fx-font-weight-bold;
+}
+
+/* ========================================
+ * 卡片底部操作按钮区域
+ * ======================================== */
+.room-card-actions {
+    -fx-spacing: 8px;
+    -fx-alignment: center-left;
+    -fx-padding: 4px 0 0 0;
+}
+
+.room-card-button {
+    -fx-font-size: -fx-font-size-sm;
+    -fx-padding: 6px 14px;
+    -fx-min-height: 30px;
+    -fx-background-radius: -fx-radius-md;
+    -fx-cursor: hand;
+}
+
+.room-card-button-idle {
+    -fx-background-color: -fx-color-success;
+    -fx-text-fill: -fx-text-inverse;
+    -fx-font-weight: -fx-font-weight-bold;
+}
+
+.room-card-button-idle:hover {
+    -fx-background-color: -fx-color-success-dark;
+}
+
+.room-card-button-reserved {
+    -fx-background-color: -fx-color-warning;
+    -fx-text-fill: -fx-text-inverse;
+    -fx-font-weight: -fx-font-weight-bold;
+}
+
+.room-card-button-reserved:hover {
+    -fx-background-color: -fx-color-warning-dark;
+}
+
+.room-card-button-inuse {
+    -fx-background-color: -fx-color-danger;
+    -fx-text-fill: -fx-text-inverse;
+    -fx-font-weight: -fx-font-weight-bold;
+}
+
+.room-card-button-inuse:hover {
+    -fx-background-color: -fx-color-danger-dark;
+}
+
+/* ========================================
+ * 使用中卡片的计时器样式
+ * ======================================== */
+.room-card-timer {
+    -fx-font-size: -fx-font-size-sm;
+    -fx-text-fill: -fx-color-danger;
+    -fx-font-weight: -fx-font-weight-bold;
+}
+
+/* ========================================
+ * 卡片脉冲动画（使用中状态）
+ * ======================================== */
+@keyframes pulse {
+    0% {
+        -fx-opacity: 1.0;
+    }
+    50% {
+        -fx-opacity: 0.5;
+    }
+    100% {
+        -fx-opacity: 1.0;
+    }
+}
+
+/* ========================================
+ * 包间网格容器（ScrollPane 内）
+ * ======================================== */
+.room-scroll-pane {
+    -fx-background-color: -fx-bg-primary;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.room-scroll-pane > .viewport {
+    -fx-background-color: -fx-bg-primary;
+}

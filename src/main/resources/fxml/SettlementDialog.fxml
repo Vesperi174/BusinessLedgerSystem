@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<!--
+  SettlementDialog.fxml — 收款结算弹窗
+  BusinessLedgerSystem 桌游店业务台账系统
+
+  弹窗结构：
+  ┌─────────────────────────────────────┐
+  │  💰 收款结算 — 包间名            ✕   │
+  ├─────────────────────────────────────┤
+  │  订单信息（包间/人数/时间/时长）      │
+  │  ───────────────────────────────    │
+  │  费用明细                            │
+  │  ┌──────────────────────────────┐   │
+  │  │ 包间费、过夜费、小计           │   │
+  │  │ 定金退回、应收合计             │   │
+  │  └──────────────────────────────┘   │
+  │  ───────────────────────────────    │
+  │  收款信息（实付/退款/美团验券）      │
+  │  过夜费（人数/合计）                │
+  ├─────────────────────────────────────┤
+  │              [ 取消 ]  [ 确认结算 ]  │
+  └─────────────────────────────────────┘
+-->
+
+<DialogPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.businessledger.ui.controller.SettlementController"
+            styleClass="dialog-pane"
+            stylesheets="@../css/theme.css,@../css/button.css,@../css/dialog.css">
+
+    <!-- ============================================================
+         弹窗头部
+         ============================================================ -->
+    <header>
+        <HBox styleClass="dialog-header">
+            <Label text="💰" styleClass="dialog-title-icon"/>
+            <Label fx:id="lblTitle" text="收款结算" styleClass="dialog-title">
+                <font>
+                    <Font name="System" size="18.0"/>
+                </font>
+            </Label>
+        </HBox>
+    </header>
+
+    <!-- ============================================================
+         弹窗内容
+         ============================================================ -->
+    <content>
+        <VBox styleClass="dialog-content">
+            <!-- 订单信息 -->
+            <VBox styleClass="dialog-info-card"
+                  fx:id="orderInfoCard">
+                <HBox spacing="16">
+                    <Label fx:id="lblRoomName" text="包间：--"
+                           styleClass="dialog-info-card-text"/>
+                    <Label fx:id="lblPeopleCount" text="人数：--"
+                           styleClass="dialog-info-card-text"/>
+                </HBox>
+                <HBox spacing="16">
+                    <Label fx:id="lblStartTime" text="开台：--"
+                           styleClass="dialog-info-card-text"/>
+                    <Label fx:id="lblEndTime" text="闭台：--"
+                           styleClass="dialog-info-card-text"/>
+                </HBox>
+                <Label fx:id="lblDuration" text="时长：--"
+                       styleClass="dialog-info-card-text"/>
+            </VBox>
+
+            <!-- 费用明细 -->
+            <GridPane styleClass="dialog-fee-grid"
+                      hgap="16" vgap="8">
+                <!-- 列约束 -->
+                <columnConstraints>
+                    <ColumnConstraints hgrow="NEVER" prefWidth="120"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <!-- 包间费用 -->
+                <Label text="包间费用" styleClass="dialog-fee-label"
+                       GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label fx:id="lblRoomFee" text="¥ 0.00"
+                       styleClass="dialog-fee-value"
+                       GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <!-- 过夜费 -->
+                <Label text="过夜费" styleClass="dialog-fee-label"
+                       GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label fx:id="lblOvernightFee" text="¥ 0.00"
+                       styleClass="dialog-fee-value"
+                       GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <!-- 分隔线 -->
+                <Separator styleClass="dialog-fee-divider"
+                           GridPane.rowIndex="2" GridPane.columnIndex="0"
+                           GridPane.columnSpan="2"/>
+
+                <!-- 小计 -->
+                <Label text="小计" styleClass="dialog-fee-total-label"
+                       GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label fx:id="lblSubtotal" text="¥ 0.00"
+                       styleClass="dialog-fee-total-value"
+                       GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <!-- 定金退回 -->
+                <Label text="定金退回" styleClass="dialog-fee-label"
+                       GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <Label fx:id="lblDepositReturn" text="-¥ 0.00"
+                       styleClass="dialog-fee-value"
+                       textFill="#22C55E"
+                       GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <!-- 分隔线 -->
+                <Separator styleClass="dialog-fee-divider"
+                           GridPane.rowIndex="5" GridPane.columnIndex="0"
+                           GridPane.columnSpan="2"/>
+
+                <!-- 应收合计 -->
+                <Label text="应收合计" styleClass="dialog-fee-total-label"
+                       GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <Label fx:id="lblTotalReceivable" text="¥ 0.00"
+                       styleClass="dialog-fee-total-value"
+                       GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Separator/>
+
+            <!-- 收款信息 -->
+            <HBox styleClass="dialog-form-row">
+                <Label text="实付款" styleClass="dialog-form-label"/>
+                <TextField fx:id="txtActualPayment"
+                           styleClass="dialog-input"
+                           promptText="实际收款金额"
+                           HBox.hgrow="ALWAYS"
+                           maxWidth="Infinity"/>
+            </HBox>
+
+            <HBox styleClass="dialog-form-row">
+                <Label text="退款" styleClass="dialog-form-label"/>
+                <TextField fx:id="txtRefund"
+                           styleClass="dialog-input"
+                           text="0.00"
+                           promptText="退款金额"
+                           HBox.hgrow="ALWAYS"
+                           maxWidth="Infinity"/>
+            </HBox>
+
+            <HBox styleClass="dialog-form-row">
+                <Label text="美团验券" styleClass="dialog-form-label"/>
+                <CheckBox fx:id="chkMeituan"
+                          text="是（勾选表示美团验券）"
+                          styleClass="dialog-checkbox"/>
+            </HBox>
+
+            <Separator/>
+
+            <!-- 过夜费 -->
+            <HBox styleClass="dialog-form-row">
+                <Label text="过夜人数" styleClass="dialog-form-label"/>
+                <Spinner fx:id="spnOvernightCount"
+                         min="0" max="999" initialValue="0"
+                         editable="true"
+                         styleClass="dialog-input"
+                         HBox.hgrow="ALWAYS"
+                         maxWidth="Infinity"/>
+            </HBox>
+
+            <HBox styleClass="dialog-form-row">
+                <Label text="过夜费合计" styleClass="dialog-form-label"/>
+                <Label fx:id="lblOvernightTotal" text="¥ 0.00"
+                       styleClass="dialog-fee-total-value"/>
+            </HBox>
+
+            <!-- 错误提示 -->
+            <Label text="" styleClass="dialog-error" fx:id="lblError"/>
+        </VBox>
+    </content>
+
+    <!-- ============================================================
+         弹窗底部按钮
+         ============================================================ -->
+    <buttonTypes>
+        <ButtonType text="取消" buttonData="CANCEL"/>
+        <ButtonType text="确认结算" buttonData="OK_DONE"/>
+    </buttonTypes>
+
+</DialogPane>

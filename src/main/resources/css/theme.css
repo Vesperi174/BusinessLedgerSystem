@@ -1,0 +1,160 @@
+/* ============================================================
+ * theme.css — 主题色变量定义
+ * BusinessLedgerSystem 桌游店业务台账系统
+ * ============================================================ */
+
+.root {
+    /* ========================================
+     * 主色系（靛蓝系，品牌色）
+     * ======================================== */
+    -fx-color-primary-50: #EEF2FF;
+    -fx-color-primary-100: #E0E7FF;
+    -fx-color-primary-200: #C7D2FE;
+    -fx-color-primary-300: #A5B4FC;
+    -fx-color-primary-400: #818CF8;
+    -fx-color-primary-500: #6366F1;
+    -fx-color-primary-600: #4F46E5;
+    -fx-color-primary-700: #4338CA;
+    -fx-color-primary-800: #3730A3;
+    -fx-color-primary-900: #312E81;
+
+    /* ========================================
+     * 功能色（状态指示）
+     * ======================================== */
+    -fx-color-success: #22C55E;
+    -fx-color-success-light: #DCFCE7;
+    -fx-color-success-dark: #16A34A;
+
+    -fx-color-warning: #F59E0B;
+    -fx-color-warning-light: #FEF3C7;
+    -fx-color-warning-dark: #D97706;
+
+    -fx-color-danger: #EF4444;
+    -fx-color-danger-light: #FEE2E2;
+    -fx-color-danger-dark: #DC2626;
+
+    -fx-color-info: #3B82F6;
+    -fx-color-info-light: #DBEAFE;
+    -fx-color-info-dark: #2563EB;
+
+    /* ========================================
+     * 中性色（背景/文字/边框）
+     * ======================================== */
+    -fx-color-gray-50: #F9FAFB;
+    -fx-color-gray-100: #F3F4F6;
+    -fx-color-gray-200: #E5E7EB;
+    -fx-color-gray-300: #D1D5DB;
+    -fx-color-gray-400: #9CA3AF;
+    -fx-color-gray-500: #6B7280;
+    -fx-color-gray-600: #4B5563;
+    -fx-color-gray-700: #374151;
+    -fx-color-gray-800: #1F2937;
+    -fx-color-gray-900: #111827;
+
+    /* ========================================
+     * 语义化背景色
+     * ======================================== */
+    -fx-bg-primary: #F9FAFB;
+    -fx-bg-card: #FFFFFF;
+    -fx-bg-toolbar: #FFFFFF;
+    -fx-bg-statusbar: #F3F4F6;
+    -fx-bg-input: #FFFFFF;
+    -fx-bg-overlay: rgba(0, 0, 0, 0.4);
+
+    /* ========================================
+     * 语义化文字色
+     * ======================================== */
+    -fx-text-primary: #111827;
+    -fx-text-secondary: #374151;
+    -fx-text-tertiary: #6B7280;
+    -fx-text-placeholder: #9CA3AF;
+    -fx-text-inverse: #FFFFFF;
+    -fx-text-link: #4F46E5;
+
+    /* ========================================
+     * 语义化边框色
+     * ======================================== */
+    -fx-border-default: #E5E7EB;
+    -fx-border-light: #F3F4F6;
+    -fx-border-focus: #6366F1;
+    -fx-border-error: #EF4444;
+
+    /* ========================================
+     * 圆角
+     * ======================================== */
+    -fx-radius-none: 0px;
+    -fx-radius-sm: 4px;
+    -fx-radius-md: 6px;
+    -fx-radius-lg: 8px;
+    -fx-radius-xl: 12px;
+    -fx-radius-2xl: 16px;
+    -fx-radius-full: 9999px;
+
+    /* ========================================
+     * 阴影（通过 effect 属性使用）
+     * 注意：JavaFX CSS 不支持 dropshadow 作为变量，
+     * 此处仅作文档记录，实际在组件 CSS 中直接使用
+     * ======================================== */
+
+    /* ========================================
+     * 字体
+     * ======================================== */
+    -fx-font-family: 'System', 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    -fx-font-size-xs: 11px;
+    -fx-font-size-sm: 12px;
+    -fx-font-size-base: 13px;
+    -fx-font-size-md: 14px;
+    -fx-font-size-lg: 16px;
+    -fx-font-size-xl: 18px;
+    -fx-font-size-2xl: 20px;
+    -fx-font-size-3xl: 24px;
+    -fx-font-size-4xl: 28px;
+
+    /* ========================================
+     * 字重
+     * ======================================== */
+    -fx-font-weight-normal: normal;
+    -fx-font-weight-medium: bold;
+    -fx-font-weight-semibold: bold;
+    -fx-font-weight-bold: bold;
+
+    /* ========================================
+     * 间距
+     * ======================================== */
+    -fx-spacing-xs: 4px;
+    -fx-spacing-sm: 8px;
+    -fx-spacing-md: 12px;
+    -fx-spacing-lg: 16px;
+    -fx-spacing-xl: 20px;
+    -fx-spacing-2xl: 24px;
+    -fx-spacing-3xl: 32px;
+
+    /* ========================================
+     * 组件尺寸
+     * ======================================== */
+    -fx-toolbar-height: 52px;
+    -fx-statusbar-height: 32px;
+    -fx-card-min-width: 200px;
+    -fx-card-min-height: 150px;
+    -fx-input-height: 36px;
+    -fx-button-height: 36px;
+    -fx-table-row-height: 40px;
+    -fx-dialog-width-sm: 440px;
+    -fx-dialog-width-md: 500px;
+    -fx-dialog-width-lg: 720px;
+
+    /* ========================================
+     * 过渡
+     * ======================================== */
+    -fx-transition-fast: 0.15s;
+    -fx-transition-normal: 0.2s;
+    -fx-transition-slow: 0.3s;
+
+    /* ========================================
+     * 全局基础样式
+     * ======================================== */
+    -fx-background-color: -fx-bg-primary;
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: -fx-font-size-base;
+    -fx-font-family: -fx-font-family;
+}
