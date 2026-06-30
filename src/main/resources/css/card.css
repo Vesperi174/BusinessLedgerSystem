@@ -1,6 +1,6 @@
 /* ============================================================
- * card.css — 包间卡片样式
- * BusinessLedgerSystem 桌游店业务台账系统
+ * card.css �?包间卡片样式
+ * BusinessLedgerSystem 桌游店业务台账系�?
  * ============================================================ */
 
 /* ========================================
@@ -19,8 +19,8 @@
  * ======================================== */
 .room-card {
     -fx-background-color: -fx-bg-card;
-    -fx-background-radius: -fx-radius-lg;
-    -fx-border-radius: -fx-radius-lg;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
     -fx-border-width: 0 0 0 4px;
     -fx-padding: 16px;
     -fx-min-width: 200px;
@@ -42,7 +42,7 @@
 }
 
 /* ========================================
- * 卡片状态边框颜色
+ * 卡片状态边框颜�?
  * ======================================== */
 .room-card-idle {
     -fx-border-color: -fx-color-success;
@@ -65,7 +65,7 @@
 }
 
 /* ========================================
- * 卡片头部：状态指示器 + 状态文字
+ * 卡片头部：状态指示器 + 状态文�?
  * ======================================== */
 .room-card-header {
     -fx-spacing: 8px;
@@ -98,13 +98,13 @@
     -fx-animation: pulse 2s infinite;
 }
 
-/* 状态文字标签 */
+/* 状态文字标�?*/
 .status-label {
-    -fx-font-size: -fx-font-size-xs;
-    -fx-font-weight: -fx-font-weight-bold;
+    -fx-font-size: 11;
+    -fx-font-weight: bold;
     -fx-padding: 2px 8px;
-    -fx-background-radius: -fx-radius-full;
-    -fx-border-radius: -fx-radius-full;
+    -fx-background-radius: 9999;
+    -fx-border-radius: 9999;
 }
 
 .status-label-idle {
@@ -126,8 +126,8 @@
  * 卡片标题（包间名称）
  * ======================================== */
 .room-card-name {
-    -fx-font-size: -fx-font-size-lg;
-    -fx-font-weight: -fx-font-weight-bold;
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
     -fx-text-fill: -fx-text-primary;
 }
 
@@ -135,13 +135,13 @@
  * 卡片价格信息
  * ======================================== */
 .room-card-price {
-    -fx-font-size: -fx-font-size-base;
+    -fx-font-size: 13;
     -fx-text-fill: -fx-text-tertiary;
 }
 
 .room-card-price-value {
-    -fx-font-size: -fx-font-size-md;
-    -fx-font-weight: -fx-font-weight-semibold;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
     -fx-text-fill: -fx-color-primary-600;
 }
 
@@ -149,15 +149,15 @@
  * 卡片附加信息（预约时间、顾客名等）
  * ======================================== */
 .room-card-info {
-    -fx-font-size: -fx-font-size-sm;
+    -fx-font-size: 12;
     -fx-text-fill: -fx-text-tertiary;
     -fx-padding: 2px 0;
 }
 
 .room-card-info-highlight {
-    -fx-font-size: -fx-font-size-sm;
+    -fx-font-size: 12;
     -fx-text-fill: -fx-text-secondary;
-    -fx-font-weight: -fx-font-weight-bold;
+    -fx-font-weight: bold;
 }
 
 /* ========================================
@@ -170,17 +170,17 @@
 }
 
 .room-card-button {
-    -fx-font-size: -fx-font-size-sm;
+    -fx-font-size: 12;
     -fx-padding: 6px 14px;
     -fx-min-height: 30px;
-    -fx-background-radius: -fx-radius-md;
+    -fx-background-radius: 6;
     -fx-cursor: hand;
 }
 
 .room-card-button-idle {
     -fx-background-color: -fx-color-success;
     -fx-text-fill: -fx-text-inverse;
-    -fx-font-weight: -fx-font-weight-bold;
+    -fx-font-weight: bold;
 }
 
 .room-card-button-idle:hover {
@@ -190,7 +190,7 @@
 .room-card-button-reserved {
     -fx-background-color: -fx-color-warning;
     -fx-text-fill: -fx-text-inverse;
-    -fx-font-weight: -fx-font-weight-bold;
+    -fx-font-weight: bold;
 }
 
 .room-card-button-reserved:hover {
@@ -200,7 +200,7 @@
 .room-card-button-inuse {
     -fx-background-color: -fx-color-danger;
     -fx-text-fill: -fx-text-inverse;
-    -fx-font-weight: -fx-font-weight-bold;
+    -fx-font-weight: bold;
 }
 
 .room-card-button-inuse:hover {
@@ -208,12 +208,12 @@
 }
 
 /* ========================================
- * 使用中卡片的计时器样式
+ * 使用中卡片的计时器样�?
  * ======================================== */
 .room-card-timer {
-    -fx-font-size: -fx-font-size-sm;
+    -fx-font-size: 12;
     -fx-text-fill: -fx-color-danger;
-    -fx-font-weight: -fx-font-weight-bold;
+    -fx-font-weight: bold;
 }
 
 /* ========================================
