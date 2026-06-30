@@ -1,8 +1,12 @@
 package com.businessledger.ui.controller;
 
 import com.businessledger.config.SpringContextHolder;
+import com.businessledger.dto.OrderCreateDTO;
 import com.businessledger.dto.OrderDTO;
+import com.businessledger.dto.SettlementDTO;
+import com.businessledger.entity.Order;
 import com.businessledger.entity.Room;
+import com.businessledger.enums.OrderStatus;
 import com.businessledger.enums.RoomStatus;
 import com.businessledger.event.OrderStatusChangedEvent;
 import com.businessledger.event.RoomStatusChangedEvent;
@@ -10,29 +14,34 @@ import com.businessledger.service.AuditLogService;
 import com.businessledger.service.OrderService;
 import com.businessledger.service.RoomService;
 import javafx.application.Platform;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class MainController {
@@ -60,7 +69,7 @@ public class MainController {
     @FXML
     private TableColumn<OrderDTO, String> colAmount;
     @FXML
-    private TableColumn<OrderDTO, Void> colAction;
+    private TableColumn<OrderDTO, OrderDTO> colAction;
     @FXML
     private Label lblTodayRevenue;
     @FXML
@@ -105,14 +114,15 @@ public class MainController {
     }
 
     private void setupKeyboardShortcuts() {
-        Scene scene = roomGrid.getScene();
-        if (scene != null) {
-            scene.getAccelerators().put(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN), this::handleCreateReservation);
-            scene.getAccelerators().put(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN), this::handleWalkIn);
-            scene.getAccelerators().put(new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN), this::handleHistory);
-            scene.getAccelerators().put(new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN), this::handleBackup);
-            scene.getAccelerators().put(new KeyCodeCombination(KeyCode.F5), this::handleRefresh);
-        }
+        roomGrid.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            if (newScene != null) {
+                newScene.getAccelerators().put(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN), this::handleCreateReservation);
+                newScene.getAccelerators().put(new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN), this::handleWalkIn);
+                newScene.getAccelerators().put(new KeyCodeCombination(KeyCode.H, KeyCombination.CONTROL_DOWN), this::handleHistory);
+                newScene.getAccelerators().put(new KeyCodeCombination(KeyCode.B, KeyCombination.CONTROL_DOWN), this::handleBackup);
+                newScene.getAccelerators().put(new KeyCodeCombination(KeyCode.F5), this::handleRefresh);
+            }
+        });
     }
 
     private void setupOrderTable() {
@@ -126,6 +136,47 @@ public class MainController {
                 data.getValue().getPeopleCount()));
         colAmount.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
                 data.getValue().getActualPayment() != null ? data.getValue().getActualPayment().toString() : ""));
+
+        colAction.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        colAction.setCellFactory(param -> new TableCell<OrderDTO, OrderDTO>() {
+            private final HBox pane = new HBox(4);
+            private final Button startBtn = new Button("开始");
+            private final Button cancelBtn = new Button("取消");
+            private final Button settleBtn = new Button("结算");
+
+            {
+                startBtn.getStyleClass().add("action-btn-start");
+                cancelBtn.getStyleClass().add("action-btn-cancel");
+                settleBtn.getStyleClass().add("action-btn-settle");
+            }
+
+            @Override
+            protected void updateItem(OrderDTO order, boolean empty) {
+                super.updateItem(order, empty);
+                if (empty || order == null) {
+                    setGraphic(null);
+                    return;
+                }
+                pane.getChildren().clear();
+                switch (order.getStatus()) {
+                    case RESERVED -> {
+                        startBtn.setOnAction(e -> handleStartOrder(order.getId()));
+                        cancelBtn.setOnAction(e -> handleCancelOrder(order.getId()));
+                        pane.getChildren().addAll(startBtn, cancelBtn);
+                    }
+                    case IN_PROGRESS -> {
+                        settleBtn.setOnAction(e -> openSettlementDialog(order));
+                        pane.getChildren().add(settleBtn);
+                    }
+                    default -> {
+                        setGraphic(null);
+                        return;
+                    }
+                }
+                setGraphic(pane);
+            }
+        });
+
         orderTable.setItems(orderList);
     }
 
@@ -208,20 +259,37 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReservationDialog.fxml"));
             loader.setControllerFactory(SpringContextHolder::getBean);
-            Parent root = loader.load();
+            DialogPane dialogPane = loader.load();
 
             ReservationController controller = loader.getController();
             controller.setRoom(room);
             controller.setWalkInMode(true);
 
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.initOwner(stage);
-            dialogStage.setTitle("直接开台 - " + room.getName());
-            dialogStage.setScene(new Scene(root));
-            dialogStage.showAndWait();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.initOwner(stage);
+            dialog.setTitle("直接开台 - " + room.getName());
+            dialog.setResultConverter(buttonType -> {
+                if (buttonType != null && buttonType.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                    if (!controller.validate()) {
+                        return null;
+                    }
+                    OrderCreateDTO dto = controller.buildDTO();
+                    try {
+                        orderService.startWalkIn(dto.getRoomId(), dto.getPeopleCount());
+                    } catch (Exception ex) {
+                        showNotification("开台失败: " + ex.getMessage());
+                        return null;
+                    }
+                    return buttonType;
+                }
+                return buttonType;
+            });
 
-            refreshAll();
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                refreshAll();
+            }
         } catch (Exception e) {
             showNotification("打开开台窗口失败: " + e.getMessage());
         }
@@ -232,18 +300,97 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/ReservationDialog.fxml"));
             loader.setControllerFactory(SpringContextHolder::getBean);
-            Parent root = loader.load();
+            DialogPane dialogPane = loader.load();
 
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.initOwner(stage);
-            dialogStage.setTitle("创建预约");
-            dialogStage.setScene(new Scene(root));
-            dialogStage.showAndWait();
+            ReservationController controller = loader.getController();
 
-            refreshAll();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.initOwner(stage);
+            dialog.setTitle("创建预约");
+            dialog.setResultConverter(buttonType -> {
+                if (buttonType != null && buttonType.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                    if (!controller.validate()) {
+                        return null;
+                    }
+                    OrderCreateDTO dto = controller.buildDTO();
+                    try {
+                        orderService.createReservation(dto);
+                    } catch (Exception ex) {
+                        showNotification("创建预约失败: " + ex.getMessage());
+                        return null;
+                    }
+                    return buttonType;
+                }
+                return buttonType;
+            });
+
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                refreshAll();
+            }
         } catch (Exception e) {
             showNotification("打开预约窗口失败: " + e.getMessage());
+        }
+    }
+
+    private void openSettlementDialog(OrderDTO orderDTO) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/SettlementDialog.fxml"));
+            loader.setControllerFactory(SpringContextHolder::getBean);
+            DialogPane dialogPane = loader.load();
+
+            SettlementController controller = loader.getController();
+            Order order = orderService.getOrderById(orderDTO.getId());
+            controller.setOrder(order);
+            controller.loadOrderData();
+
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.initOwner(stage);
+            dialog.setTitle("收款结算 - " + orderDTO.getRoomName());
+            dialog.setResultConverter(buttonType -> {
+                if (buttonType != null && buttonType.getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                    if (!controller.validate()) {
+                        return null;
+                    }
+                    SettlementDTO dto = controller.buildDTO();
+                    try {
+                        orderService.settle(dto);
+                        orderService.closeOrder(dto.getOrderId());
+                    } catch (Exception ex) {
+                        showNotification("结算失败: " + ex.getMessage());
+                        return null;
+                    }
+                    return buttonType;
+                }
+                return buttonType;
+            });
+
+            Optional<ButtonType> result = dialog.showAndWait();
+            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                refreshAll();
+            }
+        } catch (Exception e) {
+            showNotification("打开结算窗口失败: " + e.getMessage());
+        }
+    }
+
+    private void handleStartOrder(Long orderId) {
+        try {
+            orderService.startOrder(orderId);
+            refreshAll();
+        } catch (Exception e) {
+            showNotification("开始订单失败: " + e.getMessage());
+        }
+    }
+
+    private void handleCancelOrder(Long orderId) {
+        try {
+            orderService.cancelOrder(orderId);
+            refreshAll();
+        } catch (Exception e) {
+            showNotification("取消订单失败: " + e.getMessage());
         }
     }
 
@@ -257,14 +404,14 @@ public class MainController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/HistoryDialog.fxml"));
             loader.setControllerFactory(SpringContextHolder::getBean);
-            Parent root = loader.load();
+            DialogPane dialogPane = loader.load();
 
-            Stage dialogStage = new Stage();
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.initOwner(stage);
-            dialogStage.setTitle("历史查询");
-            dialogStage.setScene(new Scene(root));
-            dialogStage.showAndWait();
+            Dialog<ButtonType> dialog = new Dialog<>();
+            dialog.setDialogPane(dialogPane);
+            dialog.initOwner(stage);
+            dialog.setTitle("历史查询");
+
+            dialog.showAndWait();
         } catch (Exception e) {
             showNotification("打开历史查询窗口失败: " + e.getMessage());
         }
